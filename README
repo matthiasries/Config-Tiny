@@ -1,10 +1,9 @@
-Config::Tiny(3)       User Contributed Perl Documentation      Config::Tiny(3)
+Config::Tiny(3)                                                                                                                                                         User Contributed Perl Documentation                                                                                                                                                        Config::Tiny(3)
 
 
 
 NNAAMMEE
-       Config::Tiny - Read/Write .ini style files with as little code as
-       possible
+       Config::Tiny - Read/Write .ini style files with as little code as possible
 
 SSYYNNOOPPSSIISS
            # In your configuration file
@@ -45,19 +44,9 @@ SSYYNNOOPPSSIISS
            $Config->write( 'file.conf' );
 
 DDEESSCCRRIIPPTTIIOONN
-       "Config::Tiny" is a perl class to read and write .ini style
-       configuration files with as little code as possible, reducing load time
-       and memory overhead. Most of the time it is accepted that Perl
-       applications use a lot of memory and modules. The "::Tiny" family of
-       modules is specifically intended to provide an ultralight alternative
-       to the standard modules.
+       "Config::Tiny" is a perl class to read and write .ini style configuration files with as little code as possible, reducing load time and memory overhead. Most of the time it is accepted that Perl applications use a lot of memory and modules. The "::Tiny" family of modules is specifically intended to provide an ultralight alternative to the standard modules.
 
-       This module is primarily for reading human written files, and anything
-       we write shouldn't need to have documentation/comments. If you need
-       something with more power move up to Config::Simple, Config::General or
-       one of the many other "Config::" modules. To rephrase, Config::Tiny
-       does nnoott preserve your comments, whitespace, or the order of your
-       config file.
+       This module is primarily for reading human written files, and anything we write shouldn't need to have documentation/comments. If you need something with more power move up to Config::Simple, Config::General or one of the many other "Config::" modules. To rephrase, Config::Tiny does nnoott preserve your comments, whitespace, or the order of your config file.
 
 CCOONNFFIIGGUURRAATTIIOONN FFIILLEE SSYYNNTTAAXX
        Files are the same format as for windows .ini files. For example:
@@ -66,48 +55,34 @@ CCOONNFFIIGGUURRAATTIIOONN FFIILLEE SSYYNNTTAAXX
                var1=value1
                var2=value2
 
-       If a property is outside of a section at the beginning of a file, it
-       will be assigned to the "root section", available at "$Config->{_}".
+       If a property is outside of a section at the beginning of a file, it will be assigned to the "root section", available at "$Config->{_}".
 
-       Lines starting with '#' or ';' are considered comments and ignored, as
-       are blank lines.
+       Lines starting with '#' or ';' are considered comments and ignored, as are blank lines.
 
-       When writing back to the config file, all comments, custom whitespace,
-       and the ordering of your config file elements is discarded. If you need
-       to keep the human elements of a config when writing back, upgrade to
-       something better, this module is not for you.
+       When writing back to the config file, all comments, custom whitespace, and the ordering of your config file elements is discarded. If you need to keep the human elements of a config when writing back, upgrade to something better, this module is not for you.
 
 MMEETTHHOODDSS
    nneeww
-       The constructor "new" creates and returns an empty "Config::Tiny"
-       object.
+       The constructor "new" creates and returns an empty "Config::Tiny" object.
 
    rreeaadd $$ffiilleennaammee
-       The "read" constructor reads a config file, and returns a new
-       "Config::Tiny" object containing the properties in the file.
+       The "read" constructor reads a config file, and returns a new "Config::Tiny" object containing the properties in the file.
 
        Returns the object on success, or "undef" on error.
 
-       When "read" fails, "Config::Tiny" sets an error message internally you
-       can recover via "<Config::Tiny-"errstr>>. Although in ssoommee cases a
-       failed "read" will also set the operating system error variable $!, not
-       all errors do and you should not rely on using the $! variable.
+       When "read" fails, "Config::Tiny" sets an error message internally you can recover via "<Config::Tiny-"errstr>>. Although in ssoommee cases a failed "read" will also set the operating system error variable $!, not all errors do and you should not rely on using the $! variable.
 
    rreeaadd__ssttrriinngg $$ssttrriinngg;;
-       The "read_string" method takes as argument the contents of a config
-       file as a string and returns the "Config::Tiny" object for it.
+       The "read_string" method takes as argument the contents of a config file as a string and returns the "Config::Tiny" object for it.
 
    ggeett__sseeccttiioonnss;;
-       The "get_sections" method takes no arguments. It returns a list of all
-       sections in the "Config::Tiny" object.
+       The "get_sections" method takes no arguments. It returns a list of all sections in the "Config::Tiny" object.
 
    ggeett__kkeeyyss $$ssttrriinngg;;
-       The "get_keys" method takes as argument the name of a section in the
-       config file and returns a list keys for the given section.
+       The "get_keys" method takes as argument the name of a section in the config file and returns a list keys for the given section.
 
    wwrriittee $$ffiilleennaammee
-       The "write" method generates the file content for the properties, and
-       writes it to disk to the filename specified.
+       The "write" method generates the file content for the properties, and writes it to disk to the filename specified.
 
        Returns true on success or "undef" on error.
 
@@ -115,33 +90,26 @@ MMEETTHHOODDSS
        Generates the file content for the object and returns it as a string.
 
    eerrrrssttrr
-       When an error occurs, you can retrieve the error message either from
-       the $Config::Tiny::errstr variable, or using the "errstr()" method.
+       When an error occurs, you can retrieve the error message either from the $Config::Tiny::errstr variable, or using the "errstr()" method.
 
    pprrooppeerrttyy__ssttrriinngg
-       This method is called to produce the string used to represent the
-       property in a section.  It is passed the section name and property
-       name.
+       This method is called to produce the string used to represent the property in a section.  It is passed the section name and property name.
 
    sseett
-       This is a convenience is called to set a value found in the parsed
-       config string.  It is passed the section name, property name, and
-       value.
+       This is a convenience is called to set a value found in the parsed config string.  It is passed the section name, property name, and value.
 
 SSUUPPPPOORRTT
        Bugs should be reported via the CPAN bug tracker at
 
        <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Config-Tiny>
 
-       For other issues, or commercial enhancement or support, contact the
-       author.
+       For other issues, or commercial enhancement or support, contact the author.
 
 AAUUTTHHOORR
        Adam Kennedy <adamk@cpan.org>
 
 AACCKKNNOOWWLLEEGGEEMMEENNTTSS
-       Thanks to Sherzod Ruzmetov <sherzodr@cpan.org> for Config::Simple,
-       which inspired this module by being not quite "simple" enough for me :)
+       Thanks to Sherzod Ruzmetov <sherzodr@cpan.org> for Config::Simple, which inspired this module by being not quite "simple" enough for me :)
 
 SSEEEE AALLSSOO
        Config::Simple, Config::General, ali.as
@@ -149,12 +117,10 @@ SSEEEE AALLSSOO
 CCOOPPYYRRIIGGHHTT
        Copyright 2002 - 2007 Adam Kennedy.
 
-       This program is free software; you can redistribute it and/or modify it
-       under the same terms as Perl itself.
+       This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 
-       The full text of the license can be found in the LICENSE file included
-       with this module.
+       The full text of the license can be found in the LICENSE file included with this module.
 
 
 
-perl v5.10.0                      2010-06-21                   Config::Tiny(3)
+perl v5.10.0                                                                                                                                                                        2010-06-21                                                                                                                                                                     Config::Tiny(3)
