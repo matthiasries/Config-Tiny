@@ -1,5 +1,8 @@
 Revision history for Perl extension Config::Tiny
 
+2.12.1 Mo 21 Sep 2010
+	- Add 2 simple get methods and tests
+
 2.12 Thu  1 Nov 2007
 	- Converting build script from Module::Install to tinier EU:MM
 
