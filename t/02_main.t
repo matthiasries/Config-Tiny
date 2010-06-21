@@ -9,11 +9,11 @@ BEGIN {
 }
 
 use UNIVERSAL;
-use Test::More tests => 33;
+use Test::More tests => 39;
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '2.12';
+	$VERSION = '2.12.1';
 }
 
 
@@ -155,4 +155,31 @@ ok( exists $Trim->{section2}, 'Second section created' );
 is( $Trim->{section2}->{this}, 'that', 'Second section created properly' );
 ok( exists $Trim->{section3}, 'Third section created' );
 is( $Trim->{section3}->{this}, 'that', 'Third section created properly' );
+}
+
+
+{
+# Test selectors
+my $string = <<'END';
+
+this=that
+
+[section2]
+this1=that
+
+[section3]
+this1=that
+this2=that
+
+END
+
+my $get = Config::Tiny->read_string( $string );
+isa_ok( $get, 'Config::Tiny' );
+ok( $get->get_sections(), 'First section created' );
+is( $get->get_sections  , keys %$get , 'Check if sections work correct' );
+is( $get->get_keys()    , undef      , 'Return undef if no valid sectionname is given' );
+is( $get->get_keys({proxy01 => 'test'})  , undef      , 'Return undef if the parameter is not a string' );
+is( $get->get_keys('section3'), 2    , 'Returns the right array-size ' );
+my ( $key_this ) = $get->get_keys('_');
+is( $key_this  ,   'this'  , 'Returns the right key');
 }

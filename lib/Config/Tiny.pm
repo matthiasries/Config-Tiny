@@ -5,7 +5,7 @@ package Config::Tiny;
 use strict;
 BEGIN {
 	require 5.004;
-	$Config::Tiny::VERSION = '2.12';
+	$Config::Tiny::VERSION = '2.12.1';
 	$Config::Tiny::errstr  = '';
 }
 
@@ -102,6 +102,24 @@ sub write_string {
 	$contents;
 }
 
+# Creates a list of sections in the object
+sub get_sections {
+	return undef unless ref $_[0];	
+	my $self = shift;
+	return $self->_error('Internal error. No hash ist provided') unless defined %$self;
+	return keys %$self;
+}
+
+# Creates a list of keys for the given section
+sub get_keys {
+	return undef unless ref $_[0];
+	my $self = shift;
+	my $section = shift;
+	return $self->_error('The given parameter is not a string') if ref $section;
+	return $self->_error("Section '$section' does not exist") unless defined %{ $self->{"$section"} };
+	return keys %{ $self->{"$section"} };
+}
+
 # Error handling
 sub errstr { $Config::Tiny::errstr }
 sub _error { $Config::Tiny::errstr = $_[1]; undef }
@@ -131,11 +149,17 @@ Config::Tiny - Read/Write .ini style files with as little code as possible
     use Config::Tiny;
 
     # Create a config
-    my $Config = Config::Tiny->new();
+    my $New_Config = Config::Tiny->new();
 
     # Open the config
-    $Config = Config::Tiny->read( 'file.conf' );
+    my $Config = Config::Tiny->read( 'file.conf' );
 
+    # List of sections
+    my @sections_of_file = $Config->get_sections();
+    
+    # List of keys
+    my @keys_of_section =  $Config->get_keys('section');
+    
     # Reading properties
     my $rootproperty = $Config->{_}->{rootproperty};
     my $one = $Config->{section}->{one};
@@ -205,6 +229,17 @@ the C<$!> variable.
 
 The C<read_string> method takes as argument the contents of a config file
 as a string and returns the C<Config::Tiny> object for it.
+
+=head2 get_sections;
+
+The C<get_sections> method takes no arguments. It returns a list of 
+all sections in the C<Config::Tiny> object.
+
+=head2 get_keys $string;
+
+The C<get_keys> method takes as argument the name of a section in the config 
+file and returns a list keys for the given section.
+
 
 =head2 write $filename
 
